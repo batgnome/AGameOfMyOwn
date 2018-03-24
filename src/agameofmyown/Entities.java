@@ -13,9 +13,13 @@ public abstract class Entities implements KeyListener
     int bySpeed;
     int B_WIDTH;
     int B_HEIGHT;
+    String name;
     //need a game object so I can access functions in game
     Game game;
-    
+    public String getName()
+    {
+        return "";
+    }
     //this function is meant to be overridden
     public void tick()
     {

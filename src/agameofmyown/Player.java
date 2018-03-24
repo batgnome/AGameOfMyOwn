@@ -21,6 +21,7 @@ public class Player extends Entities
     
     //The default color of the paddle
     Color col = Color.red;
+    String name;
     
     //player constructor, make a new player and set the size, position, speed and which game he's in
     public Player(int x, int y, int WIDTH, int HEIGHT, int xSpeed, int ySpeed,Game game)
@@ -33,10 +34,33 @@ public class Player extends Entities
         this.bySpeed = ySpeed;
         this.game = game;
         
+        
+    }
+    public Player(boolean right, Game game)
+    {
+        
+        if(right==true)
+        {
+            this.bx = B_WIDTH+game.W;
+            this.downKey = KeyEvent.VK_DOWN;
+            this.downKey = KeyEvent.VK_UP;
+        }
+        else
+        {
+            this.bx = game.W;
+            this.downKey = KeyEvent.VK_S;
+            this.downKey = KeyEvent.VK_W;
+        }
+        this.B_WIDTH = 16;
+        this.B_HEIGHT = 32*4;
+        this.bxSpeed = 0;
+        this.bySpeed = 3;
+        this.game = game;
+        this.col = Color.RED;
+        
     }
     
-    //same as above but with the ability to change which keys to press (WASD VS Arrow keys)
-    public Player(int x, int y, int WIDTH, int HEIGHT, int xSpeed, int ySpeed,Game game,int upKey,int downKey, Color col)
+    public Player(int x, int y, int WIDTH, int HEIGHT, int xSpeed, int ySpeed,Game game,int upKey,int downKey, Color col, String name)
     {
         this.bx = x;
         this.by = y;
@@ -48,6 +72,12 @@ public class Player extends Entities
         this.downKey = downKey;
         this.upKey = upKey;
         this.col = col;
+        this.name = name;
+    }
+    @Override
+    public String getName()
+    {
+        return name;
     }
     
     //makes the player move
@@ -56,7 +86,6 @@ public class Player extends Entities
     {
         
         wrapEdges();
-        //check if you pressed the right keys to make him move
         checkMove();
     }
     
@@ -68,35 +97,27 @@ public class Player extends Entities
         g.fillRect(bx, by, B_WIDTH, B_HEIGHT);
     }
     
-    //checks if the keys are pressed, and if they are 
-    //add the speed to the position
     public void checkMove()
     {
         if(up) this.by -= Math.abs(bySpeed);
         
         if(down) this.by += Math.abs(bySpeed);
         
-        //if(left) bx -= Math.abs(bxSpeed);
-        
-        //if(right) bx += Math.abs(bxSpeed);
     }
     
-    //make it so you cant go above the window
     @Override
     public void wrapEdges()
     {
-        if(by > game.H - 32*8)
+        if(by > game.H - 32*6)
         {
-            this.by = game.H - 32*8 - Math.abs(bySpeed);
+            this.down = false;
         }
         if(by < 16)
         {
-            this.by = 16+Math.abs(bySpeed);
+            this.up = false;
         }
     }
     
-    //this one actually checks the keyboard and passes along
-    //what key got pressed to the checkmove function
     @Override
     public void keyPressed(KeyEvent e)
     {
@@ -104,27 +125,13 @@ public class Player extends Entities
         
         if(e.getKeyCode()==downKey) this.down = true;
         
-        //if(e.getKeyCode()==KeyEvent.VK_LEFT) left = true;
-        
-        //if(e.getKeyCode()==KeyEvent.VK_RIGHT) right = true;
-        
     }
     
-    //makes sure you don't keep moving after you released the key
     @Override
     public void keyReleased(KeyEvent e)
     {
         if(e.getKeyCode()==upKey) this.up = false;
         
         if(e.getKeyCode()==downKey) this.down = false;
-        
-        //if(e.getKeyCode()==KeyEvent.VK_LEFT) left = false;
-        
-        //if(e.getKeyCode()==KeyEvent.VK_RIGHT) right = false;
-    }
-    //not ready yet
-    void score()
-    {
-        
     }
 }
