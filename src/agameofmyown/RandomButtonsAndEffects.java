@@ -1,6 +1,9 @@
 
 package agameofmyown;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -12,18 +15,26 @@ public class RandomButtonsAndEffects extends JButton implements KeyListener, Mou
     //variables for the space key and escape key
     boolean spacePressed = false;
     boolean escapePressed = false;
-    
-    
-    
-    //not ready
-    public void keepScore()
+    Game game;
+
+    public RandomButtonsAndEffects(Game game)
     {
-        
+        this.game = game;
+    }
+    
+    public void keepScore(Graphics g)
+    {
+        Font font = new Font(Font.SANS_SERIF,Font.BOLD,32);
+        g.setColor(Color.red);
+        g.drawString("Score", game.W/2, game.H+32);
+        g.drawString(game.score(1), game.W/2, game.H+32);
+        g.drawString(game.score(2), game.W/2, game.H+32);
     }
     
     @Override
     public void keyTyped(KeyEvent e)
     {
+        
     }
     
     //checks to see if space or escape is pressed
