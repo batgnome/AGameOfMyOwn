@@ -22,15 +22,6 @@ public class RandomButtonsAndEffects extends JButton implements KeyListener, Mou
         this.game = game;
     }
     
-    public void keepScore(Graphics g)
-    {
-        Font font = new Font(Font.SANS_SERIF,Font.BOLD,32);
-        g.setColor(Color.red);
-        g.drawString("Score", game.W/2, game.H+32);
-        g.drawString(game.score(1), game.W/2, game.H+32);
-        g.drawString(game.score(2), game.W/2, game.H+32);
-    }
-    
     @Override
     public void keyTyped(KeyEvent e)
     {

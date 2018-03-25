@@ -3,6 +3,7 @@ package agameofmyown;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 //ball is an extension of entities so its got all the same stuff as
 //entities, like position and speed and size and all nice stuff
@@ -16,11 +17,14 @@ public class Ball extends Entities
     {
         
         //making a ball and a set position for any ball made with this constructor
+        
         this.game = game;
         this.bx = game.W/2-32;
         this.by = game.H/2-128;
-        this.bxSpeed = 6;
-        this.bySpeed = 3;
+        Random r = new Random();
+        double angle = r.nextInt((int) (360));
+        this.bxSpeed = (int)(5*Math.cos(angle))+1;
+        this.bySpeed = (int)(5*Math.sin(angle))+1;
         this.B_WIDTH = 32;
         this.B_HEIGHT = 32;
         
