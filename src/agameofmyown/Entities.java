@@ -16,6 +16,8 @@ public abstract class Entities implements KeyListener
     String name;
     //need a game object so I can access functions in game
     Game game;
+    double angle;
+    int speed;
     public String getName()
     {
         return "";

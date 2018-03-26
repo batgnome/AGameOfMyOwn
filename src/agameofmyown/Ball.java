@@ -13,7 +13,8 @@ public class Ball extends Entities
 //constructor for a ball, instantiates a new ball. 
     //A ball needs to know whats game its in to
     //access the game's variables
-    public Ball(Game game)
+    
+    public Ball(Game game, int setting)
     {
         
         //making a ball and a set position for any ball made with this constructor
@@ -21,12 +22,13 @@ public class Ball extends Entities
         this.game = game;
         this.bx = game.W/2-32;
         this.by = game.H/2-128;
+        this.speed = setting;
         Random r = new Random();
-        double angle = r.nextInt((int) (360));
-        this.bxSpeed = (int)(5*Math.cos(angle))+1;
-        this.bySpeed = (int)(5*Math.sin(angle))+1;
-        this.B_WIDTH = 32;
-        this.B_HEIGHT = 32;
+        angle =0;//r.nextInt((int) (360));
+        this.bxSpeed = (int)(speed*Math.cos(Math.toRadians(angle)));
+        this.bySpeed = ((int)(speed*Math.sin(Math.toRadians(angle))));
+        this.B_WIDTH = 16;
+        this.B_HEIGHT = 16;
         
     }
     @Override
@@ -55,6 +57,9 @@ public class Ball extends Entities
     @Override
     public void tick()
     {
+        
+        this.bxSpeed = (int)(speed*Math.cos(Math.toRadians(angle)));
+        this.bySpeed = (int)(speed*Math.sin(Math.toRadians(angle)));
         bx += bxSpeed;
         by += bySpeed;
         bounceEdges();
@@ -64,7 +69,7 @@ public class Ball extends Entities
     public void render(Graphics g)
     {
         g.setColor(Color.WHITE);
-        g.fillOval(bx, by, B_WIDTH, B_HEIGHT);
+        g.fillRect(bx, by, B_WIDTH, B_HEIGHT);
     }
     
     //the ball still bounces on the top and bottom
@@ -72,8 +77,8 @@ public class Ball extends Entities
     @Override
     public void bounceEdges()
     {
-        if(by > game.H-64) bySpeed = -bySpeed;
-        if(by < 0) bySpeed = -bySpeed;
+        if(by > game.H-64) angle *= -1;//bySpeed = -bySpeed;
+        if(by < 0) angle *= -1;//bySpeed = -bySpeed;
         
     }
     

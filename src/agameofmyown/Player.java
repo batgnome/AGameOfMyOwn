@@ -108,11 +108,11 @@ public class Player extends Entities
     @Override
     public void wrapEdges()
     {
-        if(by > game.H - 32*6)
+        if(by > game.H - B_HEIGHT-50)
         {
             this.down = false;
         }
-        if(by < 16)
+        if(by < 8)
         {
             this.up = false;
         }
